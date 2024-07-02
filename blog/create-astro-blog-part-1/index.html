@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- End of Highlight.js -->
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="hero.webp"/>
+    <h1 class="mb-0">Create Astro blog like this one. Part 1: Astro and Git</h1>
+    <time>Apr 07, 2023</time>
+    <hr>
+
+    <p>I will not write intros in these types of guides.
+    This is quite specific, and you know why would you like to use Astro.
+    So, let's get our hands dirty immediately.</p>
+
+    <h2>Initiate astro project</h2>
+    <p>Astro has <a href="https://docs.astro.build/en/getting-started/" target="_blank">excellent documentation</a>. For any possible problems, I highly suggest that you check it.
+        First run:</p>
+    <pre><code class="language-go">npm create astro@latest</code></pre>
+    <p>It runs interactive in console:</p>
+    <pre><code class="language-go">
+npm create astro@latest
+Need to install the following packages:
+create-astro@3.1.1
+Ok to proceed? (y) y
+
+astro   v2.1.7 Launch sequence initiated.
+
+dir   Where should we create your new project?
+./deeply-debris <-- write wanted folder name or leave default
+
+tmpl   How would you like to start your new project?
+Use blog template  <-- use blog template for this project
+✔  Template copied
+
+deps   Install dependencies?
+Yes <-- to run npm install automatically
+✔  Dependencies installed
+
+ts   Do you plan to write TypeScript?
+Yes
+
+use   How strict should TypeScript be?
+Strict
+✔  TypeScript customized
+
+git   Initialize a new git repository?
+Yes <-- yes to streamline this tutorial
+✔  Git initialized
+
+next   Liftoff confirmed. Explore your project!
+
+Enter your project directory using cd ./deeply-debris
+Run npm run dev to start the dev server. CTRL+C to stop.
+Add frameworks like react or tailwind using astro add.
+
+Stuck? Join us at https://astro.build/chat
+    </code></pre>
+
+    <p>Navigate to created project, install dependencies and run dev.</p>
+    <pre><code class="language-go">cd ./deeply-debris</code></pre>
+    <pre><code class="language-go">npm run dev</code></pre>
+
+    <p>If everything went ok, you should see successfully created project in browser.</p>
+    <img src="astro-init.webp" alt='astro init output' />
+
+    <hr />
+
+    <h2>Push project to Git/GitHub</h2>
+    <p>Create an <a href="https://github.com/new" target="_blank">new GitHub repository</a> and run:</p>
+    <pre><code class="language-go">
+git remote add origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_ASTRO_REPO.git
+git branch -M main
+git push -u origin main
+    </code></pre>
+
+    <p>You will be prompted to enter username and password.
+    Passwords are deprecated, but we can use <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank">Personal access token</a>
+    It is recommended to create scoped token only for this repository.
+    It will be in the format of ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.
+    Enter it as a password and save it for later as we are going to need it for deployment on the server.</p>
+
+    <pre><code class="language-go">
+Username for 'https://github.com': YOUR_GITHUB_USERNAME
+Password for 'https://USERNAME@github.com':
+    </code></pre>
+
+    <pre><code class="language-go">
+Enumerating objects: 44, done.
+Counting objects: 100% (44/44), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (42/42), done.
+Writing objects: 100% (44/44), 183.86 KiB | 12.26 MiB/s, done.
+Total 44 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), done.
+To https://github.com/mariovisnjic/astro-guide.git
+* [new branch]      main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'
+    </code></pre>
+
+    <p>If everything goes well, your GitHub repository will look like this:</p>
+    <img src='github-init.webp' alt='github init output' />
+
+    <p>With initiated project and GitHub being set up, we have all needed to deploy it on the server.</p>
+
+    <hr />
+
+    <p style="text-align:right"><strong>Next step: <a href="../create-astro-blog-part-2/index.html">Deployment</a></strong></p>
+
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- End of Highlight.js -->
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="hero.webp"/>
+    <h1 class="mb-0">Create Astro blog like this one. Part 3: GitHub Actions CI/CD</h1>
+    <time>Apr 09, 2023</time>
+    <hr>
+
+    <p>Modern times require modern CI/CD.
+    We are lazy to log in to the server and pull changes every time we updated our repository.
+        Therefore, we want to auto-deploy when we push to the master/main branch.</p>
+
+    <hr />
+
+    <h2>Setup GitHub secrets</h2>
+    <p>Navigate to repository settings -> Secrets and variables -> Actions</p>
+    <img src='github-secrets.webp' alt='github secrets'/>
+
+    <code>SSH_HOST -> IP of server (127.0.0.1)</code><br>
+    <code>SSH_PORT -> 22</code><br>
+    <code>SSH_USERNAME -> root</code><br>
+    <code>SSH_KEY -> private key of keypair value starting with:
+        -----BEGIN OPENSSH PRIVATE KEY-----  </code>
+
+    <hr />
+
+    <h2>Update server</h2>
+    <p>If you are not reusing keys, remember to put the new public key into the authorized keys.
+    <code>/root/.ssh/authorized_key</code>
+        The key looks like this: <code>ssh-rsa AAAALO.......</code></p>
+
+    <hr />
+
+    <h2>Update project</h2>
+
+    <p>Change index.astro to:</p>
+
+    <pre><code class="language-go">
+&lt;html lang="en"&gt;
+    &lt;head&gt;
+        &lt;BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;Header title={SITE_TITLE} /&gt;
+        &lt;main&gt;
+            &lt;h1&gt;🧑‍🚀 Hello from automated deploy!&lt;/h1&gt;
+        &lt;/main&gt;
+        &lt;Footer /&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+
+    <p>In the root of the project add</p>
+<code>/.github/workflows/deploy.yml</code>
+
+    <p>Fill it with the following:</p>
+
+    <pre><code class="language-go">
+name: Deploy CI
+    on:
+        push:
+            branches:
+                - main
+
+        jobs:
+            deploy:
+                runs-on: ubuntu-latest
+
+                steps:
+                - name: Deploy main
+                uses: appleboy/ssh-action@master
+                with:
+                    host: \${{ secrets.SSH_HOST }}
+                    username: \${{ secrets.SSH_USERNAME }}
+                    key: \${{ secrets.SSH_KEY }}
+                    port: \${{ secrets.SSH_PORT }}
+                    script: |
+                        cd /var/www/html/astro-blog/
+                        git pull origin main
+                        npm install
+                        npm run build
+    </code></pre>
+
+<p>Commit and push all the changes.</p>
+
+<hr />
+
+    <h2>GitHub actions</h2>
+    <p>Navigate to Actions in the GitHub repository.</p>
+    <img src='github-actions.webp' alt='github actions' />
+    <p>The output will look like this:</p>
+    <pre><code class="language-go">
+out:  optimizing 2 images in batches of 1
+out: Completed in 8ms.
+out: Completed in 1.32s.
+out: @astrojs/sitemap: 'sitemap-index.xml' is created.
+out: 06:26:32 PM [build] 5 page(s) built in 12.44s
+out: 06:26:32 PM [build] Complete!
+==============================================
+✅ Successfully executed commands to all host.
+==============================================
+    </code></pre>
+    <p>The final result should be updated on our server and visible in the browser:</p>
+    <img src='success.webp' alt='github secrets' />
+
+    <p>
+        <strong>Previous step: <a href="../create-astro-blog-part-2/index.html">Previous step</a></strong>
+    </p>
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

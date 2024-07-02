@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- End of Highlight.js -->
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="terminal.webp"/>
+    <h1 class="mb-0">Restart remote mySQL server with Go</h1>
+    <time>Feb 05, 2024</time>
+    <hr>
+
+    <p>I have removed myself from freelance work for a while now.<br>
+        By pure chance, a friend of a friend of a wife asked me to help with simple WordPress site.<br>
+        It mostly runs on itself without any problem.</p>
+
+    <p>It is mostly on autopilot on a cheap Linode server and with automatic WordPress updates.<br>
+        When it crashes, it is usually that too big of an update crashes mySQL server.<br>
+        Fixing it is simple, just restart the server.</p>
+
+    <p>It happens once in few months, but I am developer and I can spend 2 hours to automate something that can be fixed
+        in a minute.
+
+    <hr/>
+
+    <h2>Go lang and bubble tea</h2>
+
+    <p>I have been playing with Go for a while now and it is currently my favorite language.<br>
+        It also has great build process, and it is easy to cross compile for different platforms.<br>
+        So I can just build it and give it to a friend to run it on her Windows machine.</p>
+
+    <p>Implementation of a script was very simple as I already had a working shell script.</p>
+
+    <h3>Bubble tea</h3>
+
+    <p>Bubble tea is a library for building terminal applications also written in Go.<br>
+    It makes it easy to create interactions in terminal. So it was only matter of usage of it.</p>
+
+    Before opening the terminal, I just check for server status:
+    <pre><code class="language-go">
+    func initialModel() model {
+        ti := textinput.New()
+        ti.Placeholder = "You don't have to write yes if it's already running"
+        ti.Focus()
+        ti.CharLimit = 156
+        ti.Width = 20
+
+        mysqlStatus := checkMySQLStatus()
+
+        return model{
+            textInput: ti,
+            err: nil,
+            mysqlStatus: mysqlStatus,
+        }
+    }
+    </code></pre>
+
+    <p>Where <code>checkMySQLStatus</code> is a simple shell command:</p>
+    <pre><code class="language-go">
+    func checkMySQLStatus() string {
+        session, err := createSession()
+        if err != nil {
+            log.Fatalf("Failed to create SSH session: %v", err)
+        }
+        defer session.Close()
+
+        mysqlCheckCommand := `
+            pidfile=/var/run/mysqld/mysqld.pid
+            if [ -f $pidfile ]; then
+            varpid=$(cat $pidfile)
+            found=$(ps aux | awk '{print $2}' | grep -w $varpid)
+            if [ -z "$found" ]; then
+                echo "Not running"
+            else
+                echo "Running"
+            fi
+            else
+                echo "Not running"
+            fi
+        `
+
+        output, err := session.CombinedOutput(mysqlCheckCommand)
+        if err != nil {
+            log.Fatalf("Failed to run MySQL check command: %v", err)
+        }
+
+        return strings.TrimSpace(string(output))
+    }
+    </code></pre>
+
+    <p>Because I am only interested in restarting, I have only implemented simple yes/no input.
+    If yes is pressed, it will restart the server and check if it is running.</p>
+    <pre><code class="language-go">
+    func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+        var cmd tea.Cmd
+
+        switch msg := msg.(type) {
+            case tea.KeyMsg:
+            switch msg.Type {
+                case tea.KeyEnter:
+                if m.textInput.Value() == "yes" {
+                    restartMySQL()
+                    m.mysqlStatus = checkMySQLStatus()
+                }
+
+                case tea.KeyCtrlC, tea.KeyEsc:
+                    return m, tea.Quit
+            }
+
+            case errMsg:
+                m.err = msg
+                return m, nil
+        }
+
+        m.textInput, cmd = m.textInput.Update(msg)
+        return m, cmd
+    }
+    </code></pre>
+
+    <p>Restarting is just a <code>service mysql restart</code> command. And then the matter of display is just sprintf:</p>
+
+    <pre><code class="language-go">
+    func (m model) View() string {
+        return fmt.Sprintf(
+            "Current MySQL status: %s\n\n%s\n\n%s\n\n%s",
+            m.mysqlStatus,
+            "Write yes and press enter if you want to restart MySQL:",
+            m.textInput.View(),
+            "(esc to quit)",
+        )
+    }
+    </code></pre>
+
+    <p>Without any previous experience with bubble tea or ssh with Go, it took me about 2 hours to write and test the
+    script and every part of it was super fun.</p>
+
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

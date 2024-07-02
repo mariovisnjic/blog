@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<!-- Highlight.js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- End of Highlight.js -->
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="hero.webp"/>
+    <h1 class="mb-0">Create Astro blog like this one. Part 2: Linode</h1>
+    <time>Apr 08, 2023</time>
+    <hr>
+
+    <p>First of all, I want to start this part by urging you to use some static site hosting solution like Netlify.
+    A full list with examples is available in the <a href="https://docs.astro.build/en/guides/deploy/">documentation</a>
+    If you are like me and like to host on your own, follow this guide.
+    My default is Linode Ubuntu servers.
+    As this page is static, and I'm not planning to be super popular, I will use smallest the Nanode instance.<br>
+
+    While generating the server, Linode allows putting the ssh key without even logging into it.</p>
+
+    <hr />
+
+    <h2>Initiate apache2</h2>
+    <p>You can use nginx as oftentimes it looks more "familiar" in their notation. I am using apache2 out of a habit.</p>
+    <pre><code class="language-go">
+sudo apt update
+sudo apt install apache2
+    </code></pre>
+
+    <p>Just with that command, you should be able to navigate to the server IP and see the following page</p>
+    <img src='apache-init.webp' alt='apache init output'/>
+
+    <hr />
+
+    <h2>Buy the domain and configure DNS</h2>
+    <p>NameCheap is my go-to place for domains.
+    ChatGPT suggested me this domain after prompting for a "software engineering blog domain with the pun in it".
+        For DNS, we just need to point it to Linode.</p>
+    <img src='namecheap-dns-setup.webp' alt='astro init output'/>
+
+    <hr />
+
+    <h2>Initiate git and pull the project from GitHub</h2>
+    <pre><code class="language-go">sudo apt install git</code></pre>
+
+    <p>While pulling the project with a combination of username and GitHub token is ok, I prefer using <a href="https://github.com/git-ecosystem/git-credential-manager">git credential manager</a>.
+    It requires downloading the image and uploading it to the server which is easy with WinSCP or FileZilla.
+        Then you can run</p>
+    <pre><code class="language-go">
+sudo dpkg -i gcm-linux_amd64.2.0.935.deb
+git config --global credential.credentialStore plaintext
+cd /var/www/html/
+git clone https://github.com/GITHUB_USERNAME/YOUR_ASTRO_REPOSITORY.git
+    </code></pre>
+    <p>You will be prompted for username and password.
+    Password is github token (ghp_XXXX) we used earlier.
+        Github credential manager will save it for all future uses.</p>
+
+    <pre><code class="language-go">
+root@localhost:/var/www/html# git clone https://github.com/GITHUB_USERNAME/YOUR_ASTRO_REPOSITORY.git
+Cloning into 'YOUR_ASTRO_REPOSITORY'...
+Username for 'https://github.com': GITHUB_USERNAME
+Password for 'https://mariovisnjic@github.com':
+remote: Enumerating objects: 52, done.
+remote: Counting objects: 100% (52/52), done.
+remote: Compressing objects: 100% (41/41), done.
+remote: Total 52 (delta 7), reused 49 (delta 7), pack-reused 0
+Receiving objects: 100% (52/52), 185.86 KiB | 26.55 MiB/s, done.
+Resolving deltas: 100% (7/7), done.
+    </code></pre>
+
+    <pre><code class="language-go">cd YOUR_ASTRO_REPOSITORY</code></pre>
+
+    <p>If you run npm install it might not work, then run the following:</p>
+    <pre><code class="language-go">
+sudo apt install nodejs npm -y
+npm install -g n
+n latest
+node -v (terminal restart to show latest node version)
+npm install
+npm run build
+    </code></pre>
+
+    <hr />
+
+    <h2>Setting up apache2 to serve correct files on selected domain</h2>
+    <p>Enable rewrite mode as we will need it and navigate to sites-available</p>
+
+    <pre><code class="language-go">
+cd /etc/apache2/sites-available
+sudo a2enmod rewrite
+systemctl restart apache2
+    </code></pre>
+
+    <p>edit 000-default.conf</p>
+    <pre><code class="language-go">
+&lt;VirtualHost *:80&gt;
+    ServerAdmin contact@byte-sized.fun
+    ServerName byte-sized.fun
+    ServerAlias www.byte-sized.fun
+    Redirect permanent / https://byte-sized.fun/
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =www.byte-sized.fun [OR]
+    RewriteCond %{SERVER_NAME} =byte-sized.fun
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:443&gt;
+    ServerAdmin contact@byte-sized.fun
+    ServerName byte-sized.fun
+    ServerAlias www.byte-sized.fun
+    DocumentRoot /var/www/html/astro-blog/dist
+    &lt;Directory /&gt;
+    RewriteEngine On
+    AllowOverride All
+    Options +FollowSymLinks -MultiViews
+    &lt;IfModule mod_authz_core.c&gt;
+        &lt;RequireAll&gt;
+            Require all granted
+            Require not env BlockCountry
+            Require not env badbotlist
+        &lt;/RequireAll&gt;
+    &lt;/IfModule&gt;
+    &lt;/Directory&gt;
+
+    &lt;Directory /var/www/html/astro-blog/dist&gt;
+    RewriteEngine On
+    AllowOverride All
+    Options +FollowSymLinks -MultiViews
+    &lt;IfModule mod_authz_core.c&gt;
+        &lt;RequireAll&gt;
+            Require all granted
+            Require not env BlockCountry
+            Require not env badbotlist
+        &lt;/RequireAll&gt;
+    &lt;/IfModule&gt;
+    &lt;/Directory&gt;
+
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/blog.log combined env=!dontlog
+    SetEnvIf Remote_Addr "127\.0\.0\.1" dontlog
+    SetEnvIf Remote_Addr "::1" dontlog
+&lt;/VirtualHost&gt;
+    </code></pre>
+
+    <p>Restart the apache server and install certbot. We will need to add a SSL certificate</p>
+    <pre><code class="language-go">
+sudo service apache2 reload
+sudo apt install snapd
+sudo snap install core
+sudo snap refresh core
+sudo snap install --classic certbot
+    </code></pre>
+
+    <p>This installation process will install the certbot executable in the <code>/snap/bin/</code> directory. Create a symbolic link to this file in the <code>/usr/bin/</code> directory to ensure that you can run the certbot command anywhere on your system:</p>
+    <pre><code class="language-go">sudo ln -s /snap/bin/certbot /usr/bin/certbot</code></pre>
+
+    <p>At this point, we need to backtrack a bit and login back to Linode.
+        Go to Linode, and navigate to the Domain menu.</p>
+    <img src='a-record.webp' alt='a records' />
+    <p>Add the domain and point it to your server IP.
+    The official wait for propagation is 24 hours but it is usually done within an hour.
+    You can check thr progress on <a href="https://www.whatsmydns.net/">this link</a></p>
+
+    <p>Once done, open cmd in the server and run the certbot command.</p>
+    <pre><code class="language-go">certbot</code></pre>
+    <p>input all fields
+        leave empty to get the certificate for all sites</p>
+
+    <hr />
+
+    <h2>Debugging</h2>
+    <p>If it is not working for any reason, a good starting point is:</p>
+    <pre><code class="language-go">apachectl configtest</code></pre>
+    <p>I had two errors of putting a blog in the wrong folder path in 000-domain.conf.
+        The other was a bit obscure error that needed me to add to <code>/etc/apache2/apache2.conf</code></p>
+    <pre><code class="language-go">ServerName byte-sized.fun</code></pre>
+
+    <hr />
+
+    <p style="display: flex;justify-content:space-around">
+        <strong>Previous step: <a href="../create-astro-blog-part-1/index.html">Previous step</a></strong>
+        <strong>Next step: <a href="../create-astro-blog-part-3/index.html">Automating deployment</a></strong>
+    </p>
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

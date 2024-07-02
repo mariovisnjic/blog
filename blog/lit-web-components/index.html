@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<!-- Highlight.js -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
+<!-- End of Highlight.js -->
+
+<script type="module" type="text/javascript">
+    import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2.4.0/core/lit-core.min.js';
+
+    export class SimpleGreeting extends LitElement {
+        static styles = css`p {
+          color: hotpink
+        }`;
+
+        static properties = {
+            name: {type: String},
+        };
+
+        constructor() {
+            super();
+            this.name = 'Default name';
+        }
+
+        render() {
+            return html`<p>Hello, ${this.name}!</p>`;
+        }
+    }
+
+    customElements.define('simple-greeting', SimpleGreeting);
+</script>
+
+<script type="module">
+    import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2.4.0/core/lit-core.min.js';
+
+    export class RoleBasedMenu extends LitElement {
+        static styles = css`a {
+    color: hotpink
+  }`;
+
+  static properties = {
+    role: {type: String},
+    permissions: {type: String},
+  };
+
+
+  constructor() {
+    super();
+    // default values read from local storage
+    this.role = localStorage.getItem('litMenuRole') || '';
+    this.permissions = localStorage.getItem('litMenuPermissions') || ''
+  }
+
+  listOfMenuItems = [
+    {
+      name: 'Home',
+      link: '#1'
+    },
+    {
+      name: 'Only seen by superadmin role',
+      link: '#2',
+      roles: ['superadmin']
+    },
+    {
+      name: 'Seen by sales role',
+      link: '#3',
+      roles: ['sales']
+    },
+    {
+      name: 'Seen by permission see_special',
+      link: '#4',
+      permission: ['see_special']
+    },
+  ]
+
+  render() {
+    const permissionArray = this.permissions.split(',')
+
+    const menuFiltered = this.listOfMenuItems.filter(menuItem => {
+      if(this.role === 'superadmin'){
+        return true
+      }
+      if(!menuItem.roles && !menuItem.permission){
+        return true
+      }
+
+      if(menuItem.roles && menuItem.roles.includes(this.role)){
+        return true
+      }
+
+      return menuItem.permission && menuItem.permission.filter(r => permissionArray.includes(r)).length
+    })
+
+    return html`<ul>
+      ${menuFiltered.map((menuItem) => html`<a href="${menuItem.link}"><li>${menuItem.name}</li></a>`)}
+    </ul>`;
+    }
+  }
+
+customElements.define('role-based-menu', RoleBasedMenu);
+</script>
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="logo.webp"/>
+    <h1 class="mb-0">Building reusable web-components with Lit</h1>
+    <time>Jul 04, 2023</time>
+    <hr>
+
+    <p>In the current company, we have a frontend setup of HTML + CSS + JS(jQuery).
+        Main dashboard requires very little shared state between pages.
+        This enables very fast onboarding. When I joined, it took me two days to pick up what was going on and start
+        contributing.</p>
+
+    <p>We are undergoing a large redesign, and we had a decision to make whether we want to move to React or keep the
+        current setup.
+        React has a learning curve, and three people will write React in three different ways.</p>
+
+    <p>The decision was made that the new version will still keep the same technology.
+        The main pain point with it is not being able to reuse parts of the web.
+        Imagine updating a menu for 60 html pages because you want to add a new link.</p>
+
+    <p>Web components seemed like an obvious choice. However, raw web components are not very easy to get into.</p>
+
+    <hr/>
+
+    <h2>In comes Lit</h2>
+    <p></p><a href="https://lit.dev/">Lit</a> is a lightweight framework for web components.
+    Currently is a go-to tool for web components. Even Google's Polymer which is supposed to do the same thing now just
+    points to Lit.</p>
+    <img src='polymer.webp' alt='polymer'/>
+
+    <hr/>
+    <h2>Hello world</h2>
+
+    <p>This is an example of hello world with Lit with additional button to display reactiveness:</p>
+    <pre><code class="language-html">
+&lt;script type="module"&gt;
+    import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+
+    export class SimpleGreeting extends LitElement {
+        static styles = css`p { color: hotpink }`;
+
+        static properties = {
+            name: {type: String},
+        };
+
+        constructor() {
+            super();
+                this.name = 'Default name';
+            }
+
+        render() {
+            return html`&lt;p&gt;Hello, ${this.name}!&lt;/p&gt;`;
+        }
+    }
+  customElements.define('simple-greeting', SimpleGreeting);
+&lt;/script&gt;
+
+&lt;simple-greeting name="Blog" id="greeting"&gt;&lt;/simple-greeting&gt;
+&lt;button onclick="document.getElementById('greeting').name = 'user'+Math.floor(Math.random() * 9000 + 1000)"&gt;
+    Change name
+&lt;/button&gt;
+
+        </code></pre>
+
+    <p>And the actual thing being run in browser:</p>
+
+    <simple-greeting name="Blog" id="greeting"></simple-greeting>
+    <button onclick="document.getElementById('greeting').name = 'user'+Math.floor(Math.random() * 9000 + 1000)">Change
+        name
+    </button>
+
+    <hr/>
+
+    <h2>Permission based menu</h2>
+
+    <h3>Component</h3>
+    <p>If we build upon a hello world, we need minor changes.</p>
+
+    <p>Two props will be role and permission in the format of permission1,permission2.
+    We try to read default values from localStorage if we have them.
+    This allows us to preload in case we need to wait for user to load.
+        On user load, we can again get component by id and pass new props.</p>
+    <pre><code class="language-html">
+    &lt;script type="module"&gt;
+        import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+
+        export class RoleBasedMenu extends LitElement {
+            static styles = css`a {
+    color: white
+  }`;
+
+  static properties = {
+    role: {type: String},
+    permissions: {type: String},
+  };
+
+
+  constructor() {
+    super();
+    // default values read from local storage
+    this.role = localStorage.getItem('litMenuRole') || '';
+    this.permissions = localStorage.getItem('litMenuPermissions') || ''
+  }
+
+  listOfMenuItems = [
+    {
+      name: 'Home',
+      link: '#1'
+    },
+    {
+      name: 'Only seen by superadmin role',
+      link: '#2',
+      roles: ['superadmin']
+    },
+    {
+      name: 'Seen by sales role',
+      link: '#3',
+      roles: ['sales']
+    },
+    {
+      name: 'Seen by permission see_special',
+      link: '#4',
+      permission: ['see_special']
+    },
+  ]
+
+  render() {
+    const permissionArray = this.permissions.split(',')
+
+    const menuFiltered = this.listOfMenuItems.filter(menuItem => {
+      if(this.role === 'superadmin'){
+        return true
+      }
+      if(!menuItem.roles && !menuItem.permission){
+        return true
+      }
+
+      if(menuItem.roles && menuItem.roles.includes(this.role)){
+        return true
+      }
+
+      return menuItem.permission && menuItem.permission.filter(r => permissionArray.includes(r)).length
+    })
+
+    return html`&lt;ul&gt;
+      ${menuFiltered.map((menuItem) => html`&lt;a href="${menuItem.link}">&lt;li&gt;${menuItem.name}&lt;/li&gt;&lt;/a&gt;`)}
+    &lt;/ul&gt;`;
+    }
+  }
+
+customElements.define('role-based-menu', RoleBasedMenu);
+
+&lt;/script&gt;
+
+&lt;role-based-menu id='menu-component'&gt;&lt;/role-based-menu&gt;
+    </code></pre>
+
+
+    <h3>Controls</h3>
+    <p>Buttons are just mimicking possible behavior of app by passing properties and saving to local storage for
+    persistence purposes.
+        Button onclick is in the format of:</p>
+    <small>document.getElementById('menu-component').role = ROLENAME;</small>
+    <small>localStorage.setItem('litMenuRole', ROLENAME)</small>
+
+
+    <p>Set role:</p>
+    <button onclick="document.getElementById('menu-component').role = '';localStorage.setItem('litMenuRole', '')">Role
+        none
+    </button>
+    <button
+            onclick="document.getElementById('menu-component').role = 'superadmin';localStorage.setItem('litMenuRole', 'superadmin')">
+        Role
+        superadmin
+    </button>
+    <button
+            onclick="document.getElementById('menu-component').role = 'sales';localStorage.setItem('litMenuRole', 'sales')">
+        Role
+        sales
+    </button>
+
+    <p>Set permissions:</p>
+    <button
+            onclick="document.getElementById('menu-component').permissions = 'see_special,see_another';localStorage.setItem('litMenuPermissions', 'see_another')">
+        See
+        special
+    </button>
+    <button
+            onclick="document.getElementById('menu-component').permissions = '';localStorage.setItem('litMenuPermissions', '')">
+        Hide
+        special
+    </button>
+
+    <h3>Menu rendered</h3>
+    <role-based-menu id='menu-component'></role-based-menu>
+
+    <hr/>
+    <h2>Conclusion</h2>
+
+    <p>Using Lit has a familiar vibe of using pre-hooks React.
+    It has a much wider API than shown in this article,
+        but it shows the possibility of building React-like components for the price of 32kB of data.</p>
+
+
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Page Title</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../../style.css">
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
+
+<body>
+<header-component path-prefix="../../"></header-component>
+<main>
+    <img src="kontrolma.webp" alt='hero image' />
+    <h1 class="mb-0">kontrolma.hr</h1>
+    <time>Aug 31, 2023</time>
+    <hr>
+
+    <h2>About</h2>
+
+    <p>My brother approached me with a simple request: "I need a simple website that displays the services I provide, as cheaply as possible, ideally for free."</p>
+
+    <p>This is the third rendition of this website. The first one was React app because I was learning React at the time. The Second was WordPress because I was going for simplicity.
+    After he forgot to pay for hosting for the WordPress site and the site got deleted, I had the freedom of choice to restart in a new way.</p>
+
+    <p>The website is not the primary source of leads for his company, so I have a lot of freedom.</p>
+
+    <hr />
+
+    <h2>Stack</h2>
+    <p>I'm <strong>obsessed with keeping it simple recently</strong>, so my first reaction was HTML + CSS and nothing else. Remembered that Bootstrap 5 has template examples of full pages which can be used for free.
+    Proud to say that I did not add a line of JavaScript in it.
+    Since it is a static page, I used Netlify to host it.
+    The first version of the new website was up and running in 15 minutes. The Croatian government provides a free domain for your business as long it is a similar name to a registered company.</p>
+
+    <p>Given template needed a few changes and was ready to run:</p>
+    <ul>
+        <li>I reused all the copy from before</li>
+        <li>Changed images from .png to .webp</li>
+        <li>Defer image loads</li>
+        <li>Change Bootstrap and Bootstrap icons to be imported from cdn</li>
+        <li>Small fixes based on lighthouse suggestions</li>
+        <li>Automate Netlify forms with Captcha to work and send email correctly</li>
+    </ul>
+
+    <hr />
+
+    <h2>Lighthouse score</h2>
+
+    <img src="lighthouse.webp" alt='lighthouse scores' />
+
+    <hr />
+
+    <p>In the end, all was done in few hours purely because of me wanting to optimize it as much as possible.</p>
+
+    <a href="https://kontrolma.hr">Visit website</a>
+    <a href="https://github.com/mariovisnjic/kontrolma">GitHub</a>
+
+</main>
+<footer-component></footer-component>
+</body>
+
+</html>

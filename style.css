@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo');
+
+:root{
+    --secondary-dark: #393E46;
+
+    --color-white: #EEEEEE;
+    --color-black: #000000;
+    --color-blue: #CCD5FF;
+    --color-orange: #F49E4C;
+    --color-dark-green: #61fff4;
+    --color-light-green: #82ffd9;
+    --color-pink: #fc7998;
+    --color-red: #ff6e3d;
+}
+
+body {
+    font-family: 'Arimo', sans-serif;
+    margin: auto;
+    padding: 40px;
+    max-width: 75ch;
+    text-align: left;
+    background-color: var(--color-blue);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--color-black);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+}
+footer {
+    margin-top: auto;
+}
+a {
+    display: inline-block;
+    position: relative;
+    margin: 4px 8px;
+    color: var(--color-black);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+a::after{
+    position: absolute;
+    content: "";
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-blue);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s;
+}
+a:hover {
+    color: #95a5a6;
+    text-decoration: none;
+}
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+a.active{
+    font-weight: bolder;
+}
+hr {
+    border-color: var(--color-blue);
+    margin: 1rem 0;
+}
+nav a {
+    margin-right: 10px;
+}
+textarea {
+    width: 100%;
+    font-size: 16px;
+}
+input {
+    font-size: 16px;
+}
+content {
+    line-height: 1.6;
+}
+table {
+    width: 100%;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+code {
+    padding: 2px 5px;
+    background-color: var(--color-white);
+    color: var(--color-black);
+}
+pre {
+    padding: 1rem;
+}
+pre > code {
+    all: unset;
+}
+blockquote {
+    border: 1px solid #999;
+    color: #222;
+    padding: 2px 0 2px 20px;
+    margin: 0;
+    font-style: italic;
+}
+main {
+    margin-bottom: 40px;
+    background: var(--color-white);
+    border: 1px solid var(--color-black);
+    border-radius: 3px;
+    padding: 8px 16px;
+    box-shadow: 4px 4px 0 0 var(--color-black)
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+@view-transition {
+    navigation: auto;
+    types: slide, forwards;
+}
