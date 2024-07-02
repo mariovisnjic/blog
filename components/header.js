@@ -19,7 +19,7 @@ class Header extends HTMLElement {
             { href: 'https://www.linkedin.com/in/mario-visnjic', text: '<small>🔗</small>LinkedIn', target: '_blank' }
         ];
 
-        const normalizePath = (path) => path.replace(/\/$/, '');
+        const normalizePath = (path) => path.replace(/\/$/, '').replace(/\/index\.html$/, '');
 
         links.forEach(linkInfo => {
             const link = document.createElement('a');
