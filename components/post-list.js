@@ -62,19 +62,21 @@ class PostList extends HTMLElement {
 
     render() {
         const list = posts.map(blog => `
-                    <li class="blog-item">
-                        <a href="${blog.url}">
-                            <div class="cardImage">
-                                <img src="${blog.image}" alt="${blog.title}">
-                            </div>
-                            <div class="cardText">
-                                <h3>${blog.title}</h3>
-                                <time>${blog.time}</time>
-                                <br>
-                                <p>${blog.description}</p>
-                            </div>
-                        </a>
-                    </li>
+                    <sketchy-border>
+                        <li class="blog-item">
+                            <a href="${blog.url}">
+                                <div class="cardImage">
+                                    <img src="${blog.image}" alt="${blog.title}">
+                                </div>
+                                <div class="cardText">
+                                    <h3>${blog.title}</h3>
+                                    <time>${blog.time}</time>
+                                    <br>
+                                    <p>${blog.description}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </sketchy-border>
                 `).join('');
 
         this.shadowRoot.innerHTML = `
@@ -83,19 +85,11 @@ class PostList extends HTMLElement {
                 list-style-type: none;
                 padding: unset;
                 display: grid;
-            }
-        
-            ul li {
-                display: inline-flex;
-                flex-direction: column;
-                margin: 8px;
-                box-shadow: -4px 4px 0 -1px #000;
-                border: 2px solid var(--color-black);
-                border-radius: 4px;
+                gap: 10px;
             }
         
             ul li:hover {
-                box-shadow: -5px 5px 0 -1px #000;
+                box-shadow: -2px 5px 0 -1px #000;
                 transition: 0.2s;
             }
         
@@ -104,9 +98,6 @@ class PostList extends HTMLElement {
                 text-decoration: none;
                 display: flex;
                 flex-direction: column;
-                height: 100%;
-                margin: unset;
-                text-transform: none;
             }
         
             ul li a:hover::after {
@@ -116,7 +107,9 @@ class PostList extends HTMLElement {
             .cardText {
                 padding: 10px;
                 text-align: left;
-                height: 100%;
+                min-height: 100%;
+                display: flex;
+                flex-direction: column;
         
                 h3 {
                     margin-bottom: 0;

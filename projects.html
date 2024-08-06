@@ -4,22 +4,21 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style.css">
+<script src="./vendors/vendors.js"></script>
 <script src="./components/header.js"></script>
 <script src="./components/footer.js"></script>
+<script src="./components/sketchy-border.js"></script>
 <style>
     ul {
         list-style-type: none;
         padding: unset;
         display: grid;
+        gap: 10px;
     }
 
     ul li {
         display: inline-flex;
         flex-direction: column;
-        margin: 8px;
-        box-shadow: -4px 4px 0 -1px #000;
-        border: 2px solid var(--color-black);
-        border-radius: 4px;
     }
 
     ul li:hover {
@@ -104,40 +103,51 @@
 </style>
 
 <body>
-<header-component></header-component>
-<main>
-    <h1>Blog</h1>
-    <section>
-        <ul>
-            <li>
-                <a href="projects/remote-mysql-server-go/index.html">
-                    <div class="cardImage">
-                        <img src="projects/remote-mysql-server-go/terminal.webp"/>
-                    </div>
-                    <div class="cardText">
-                        <h3>Restart remote mySQL server with Go</h3>
-                        <time>Feb 05 2024</time>
-                        <br>
-                        <p>Simple Go/Bubbletea script to check and restart remote mySQL server</p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="projects/kontrolma/index.html">
-                    <div class="cardImage">
-                        <img src="projects/kontrolma/kontrolma.webp"/>
-                    </div>
-                    <div class="cardText">
-                        <h3>kontrolma.hr</h3>
-                        <time>Aug 31 2023</time>
-                        <br>
-                        <p>Simple HTML + CSS website for brothers' Construction safety company</p>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </section>
-</main>
+<sketchy-border>
+    <header-component></header-component>
+</sketchy-border>
+
+<sketchy-border>
+    <main>
+        <h1>Blog</h1>
+        <section>
+            <ul>
+                <sketchy-border>
+                <li>
+                    <a href="projects/remote-mysql-server-go/index.html">
+                        <div class="cardImage">
+                            <img src="projects/remote-mysql-server-go/terminal.webp"/>
+                        </div>
+                        <div class="cardText">
+                            <h3>Restart remote mySQL server with Go</h3>
+                            <time>Feb 05 2024</time>
+                            <br>
+                            <p>Simple Go/Bubbletea script to check and restart remote mySQL server</p>
+                        </div>
+                    </a>
+                </li>
+                </sketchy-border>
+
+                <sketchy-border>
+                <li>
+                    <a href="projects/kontrolma/index.html">
+                        <div class="cardImage">
+                            <img src="projects/kontrolma/kontrolma.webp"/>
+                        </div>
+                        <div class="cardText">
+                            <h3>kontrolma.hr</h3>
+                            <time>Aug 31 2023</time>
+                            <br>
+                            <p>Simple HTML + CSS website for brothers' Construction safety company</p>
+                        </div>
+                    </a>
+                </li>
+                </sketchy-border>
+            </ul>
+        </section>
+    </main>
+</sketchy-border>
+
 <footer-component></footer-component>
 </body>
 

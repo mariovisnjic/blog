@@ -6,6 +6,9 @@ class Header extends HTMLElement {
     connectedCallback() {
         const shadowRoot = this.attachShadow({ mode: 'open' });
 
+        const headerWrapper = document.createElement('div');
+        headerWrapper.classList.add('sketchy-border');
+
         const header = document.createElement('header');
         const nav = document.createElement('nav');
 
@@ -52,10 +55,7 @@ class Header extends HTMLElement {
             header {
                 margin: 0 0 2em;
                 background: var(--color-white);
-                border: 1px solid var(--color-black);
-                border-radius: 3px;
                 padding: 8px 16px;
-                box-shadow: 4px 4px 0 0 var(--color-black);
             }
             h2 {
                 margin: 0.5em 0;

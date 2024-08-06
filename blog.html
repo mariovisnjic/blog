@@ -4,18 +4,26 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="style.css">
+<script src="./vendors/vendors.js"></script>
 <script src="./components/header.js"></script>
 <script src="./components/footer.js"></script>
 <script src="./components/post-list.js"></script>
+<script src="./components/sketchy-border.js"></script>
 
 <body>
-<header-component></header-component>
-<main>
-    <h1>Blog</h1>
-    <section>
-        <post-list></post-list>
-    </section>
-</main>
+<sketchy-border>
+    <header-component></header-component>
+</sketchy-border>
+
+<sketchy-border>
+    <main>
+        <h1>Blog</h1>
+        <section>
+            <post-list></post-list>
+        </section>
+    </main>
+</sketchy-border>
+
 <footer-component></footer-component>
 </body>
 
