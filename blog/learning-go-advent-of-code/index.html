@@ -4,31 +4,27 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
 
-<!-- Highlight.js -->
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
-<script>hljs.highlightAll();</script>
-<!-- End of Highlight.js -->
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <body>
+<sketchy-border path-prefix="../../">
 <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+    <sketchy-border path-prefix="../../">
 <main>
     <img src="advent.webp"/>
     <h1 class="mb-0">Learning Go by solving the AoC 2022.</h1>
     <time>Aug 31, 2023</time>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
     <p>I want to learn a new language. I do not want to be stuck on MERN stack forever but be a well-rounded dev.</p>
     <p>Python was the initial idea, and I had a chance to fiddle with it on RaspberryPi. Even thought the syntax is basic and readable; it did not stick with me.
         Golang was my choice as I wanted to do one more high-level before diving into some low-level language.</p>
     <p>Two things I know about Go are that it is growing quick in terms of adoption rate, and that you initiate and assign variable with ”:=“</p>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Day 1 and 2 tasks</h2>
 
@@ -43,7 +39,7 @@
     </ol>
     <p>So while hard-coding my last rock paper scissor against the elves in task 2, I decided it is going to be smarter for me to go through language documentation properly and then continue with the tasks.</p>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Day 3-6</h2>
     <p>Syntax is slowly getting into my fingers. I figured out there is a set of standard libraries like “strings”, which has most of what JS has covered. Even though I have come to peace with looping through arrays, I wish there was a library for arrays.</p>
@@ -55,7 +51,7 @@ left := slice[:mid]
 right := slice[mid:]
     </code></pre>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Day 7,8 and 9</h2>
     <p>First of all, I never practiced LeetCode. I never created a node tree, traversed it or compared binary trees.
@@ -63,7 +59,7 @@ right := slice[mid:]
     <p>So this whole task was an adventure of its own regardless of language used. The code creates actual node tree, is full recursion, but in the end, it sorts its stuff out and spits the correct results out.</p>
     <p>While day 8 didn’t teach me anything new for Go, it did show me that it is easier to practice and debug on a smaller set of data and then provide full input for a task.</p>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Anecdote from the job</h2>
     <p>I had a task two months ago where I needed to find overlaps between dates.
@@ -72,7 +68,7 @@ right := slice[mid:]
     <p>Turned out that calculation had bugs all over the place miscalculating at seemingly random times. This time I approached it clear head and recognized that it can be structured and solved in a much simpler way than it was. It took me an hour of implementing, testing a new solution and running it in production. The Advent of code has armed me with a more algorithmic approach.</p>
     <p>The solution ended up bug free and reduced from 400 lines of code to 250 more readable ones.</p>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Finishing it early</h2>
 
@@ -81,6 +77,7 @@ right := slice[mid:]
     <p>I will be back to finish the Advent of Code and learn Go in the process as it seems to be a great language and Advent seems to be a great way of learning it.</p>
 
 </main>
+</sketchy-border>
 <footer-component></footer-component>
 </body>
 

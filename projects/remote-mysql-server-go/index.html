@@ -4,23 +4,21 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
 
-<!-- Highlight.js -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
-<script>hljs.highlightAll();</script>
-<!-- End of Highlight.js -->
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <body>
+<sketchy-border path-prefix="../../">
 <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+
+<sketchy-border path-prefix="../../">
 <main>
     <img src="terminal.webp"/>
     <h1 class="mb-0">Restart remote mySQL server with Go</h1>
     <time>Feb 05, 2024</time>
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <p>I have removed myself from freelance work for a while now.<br>
         By pure chance, a friend of a friend of a wife asked me to help with simple WordPress site.<br>
@@ -33,7 +31,7 @@
     <p>It happens once in few months, but I am developer and I can spend 2 hours to automate something that can be fixed
         in a minute.
 
-    <hr/>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Go lang and bubble tea</h2>
 
@@ -147,6 +145,7 @@
     script and every part of it was super fun.</p>
 
 </main>
+</sketchy-border>
 <footer-component></footer-component>
 </body>
 

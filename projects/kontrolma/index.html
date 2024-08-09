@@ -4,16 +4,21 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
+
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <body>
+<sketchy-border path-prefix="../../">
 <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+
+<sketchy-border path-prefix="../../">
 <main>
     <img src="kontrolma.webp" alt='hero image' />
     <h1 class="mb-0">kontrolma.hr</h1>
     <time>Aug 31, 2023</time>
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <h2>About</h2>
 
@@ -24,7 +29,7 @@
 
     <p>The website is not the primary source of leads for his company, so I have a lot of freedom.</p>
 
-    <hr />
+    <sketchy-hr></sketchy-hr>
 
     <h2>Stack</h2>
     <p>I'm <strong>obsessed with keeping it simple recently</strong>, so my first reaction was HTML + CSS and nothing else. Remembered that Bootstrap 5 has template examples of full pages which can be used for free.
@@ -42,13 +47,13 @@
         <li>Automate Netlify forms with Captcha to work and send email correctly</li>
     </ul>
 
-    <hr />
+    <sketchy-hr></sketchy-hr>
 
     <h2>Lighthouse score</h2>
 
     <img src="lighthouse.webp" alt='lighthouse scores' />
 
-    <hr />
+    <sketchy-hr></sketchy-hr>
 
     <p>In the end, all was done in few hours purely because of me wanting to optimize it as much as possible.</p>
 
@@ -56,6 +61,7 @@
     <a href="https://github.com/mariovisnjic/kontrolma">GitHub</a>
 
 </main>
+</sketchy-border>
 <footer-component></footer-component>
 </body>
 

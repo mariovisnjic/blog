@@ -41,14 +41,15 @@ class CustomSketchyBorder extends HTMLElement {
         const rc = rough.svg(svg);
         svg.innerHTML = '';
 
-
-
         // Draw the border around the slot element
-        svg.appendChild(rc.rectangle(0, 0, wrapper.scrollWidth, wrapper.scrollHeight, {
-            roughness: 2.8,
-            strokeWidth: 5,
-            stroke: 'black'
-        }));
+        requestAnimationFrame(() => {
+            const roughness = wrapper.scrollHeight > 2000 ? 1.1 : 1.5;
+            svg.appendChild(rc.rectangle(0, 0, wrapper.scrollWidth, wrapper.scrollHeight, {
+                roughness,
+                strokeWidth: 3,
+                stroke: 'black'
+            }));
+        });
     }
 }
 

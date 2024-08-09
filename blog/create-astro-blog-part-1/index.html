@@ -4,23 +4,22 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
 
-<!-- Highlight.js -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
-<script>hljs.highlightAll();</script>
-<!-- End of Highlight.js -->
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <body>
-<header-component path-prefix="../../"></header-component>
+<sketchy-border path-prefix="../../">
+    <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+
+
+<sketchy-border path-prefix="../../">
 <main>
     <img src="hero.webp"/>
     <h1 class="mb-0">Create Astro blog like this one. Part 1: Astro and Git</h1>
     <time>Apr 07, 2023</time>
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <p>I will not write intros in these types of guides.
     This is quite specific, and you know why would you like to use Astro.
@@ -77,7 +76,7 @@ Stuck? Join us at https://astro.build/chat
     <p>If everything went ok, you should see successfully created project in browser.</p>
     <img src="astro-init.webp" alt='astro init output' />
 
-    <hr />
+    <sketchy-hr></sketchy-hr>
 
     <h2>Push project to Git/GitHub</h2>
     <p>Create an <a href="https://github.com/new" target="_blank">new GitHub repository</a> and run:</p>
@@ -116,11 +115,12 @@ Branch 'main' set up to track remote branch 'main' from 'origin'
 
     <p>With initiated project and GitHub being set up, we have all needed to deploy it on the server.</p>
 
-    <hr />
+    <sketchy-hr></sketchy-hr>
 
     <p style="text-align:right"><strong>Next step: <a href="../create-astro-blog-part-2/index.html">Deployment</a></strong></p>
 
 </main>
+</sketchy-border>
 <footer-component></footer-component>
 </body>
 

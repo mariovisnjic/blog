@@ -7,13 +7,6 @@ const posts = [
         description: "...and I picked up a useful skill because of it"
     },
     {
-        url: "blog/this-blog-is-gonna-be-neo-brutal/index.html",
-        image: "blog/this-blog-is-gonna-be-neo-brutal/cover.webp",
-        title: "This blog is gonna be (neo)brutal",
-        time: "Sep 04 2023",
-        description: "Hard borders, sharp shadows and lots of colors"
-    },
-    {
         url: "blog/learning-go-advent-of-code/index.html",
         image: "blog/learning-go-advent-of-code/advent.webp",
         title: "Learning Go by solving the AoC 2022",

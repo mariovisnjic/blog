@@ -4,16 +4,9 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
 
-<!-- Highlight.js -->
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css">
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/go.min.js"></script>
-<script>hljs.highlightAll();</script>
-<!-- End of Highlight.js -->
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <script type="module" type="text/javascript">
     import {LitElement, html, css} from 'https://cdn.jsdelivr.net/gh/lit/dist@2.4.0/core/lit-core.min.js';
@@ -111,12 +104,15 @@ customElements.define('role-based-menu', RoleBasedMenu);
 </script>
 
 <body>
+<sketchy-border path-prefix="../../">
 <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+    <sketchy-border path-prefix="../../">
 <main>
     <img src="logo.webp"/>
     <h1 class="mb-0">Building reusable web-components with Lit</h1>
     <time>Jul 04, 2023</time>
-    <hr>
+    <sketchy-hr></sketchy-hr>
 
     <p>In the current company, we have a frontend setup of HTML + CSS + JS(jQuery).
         Main dashboard requires very little shared state between pages.
@@ -133,7 +129,7 @@ customElements.define('role-based-menu', RoleBasedMenu);
 
     <p>Web components seemed like an obvious choice. However, raw web components are not very easy to get into.</p>
 
-    <hr/>
+    <sketchy-hr></sketchy-hr>
 
     <h2>In comes Lit</h2>
     <p></p><a href="https://lit.dev/">Lit</a> is a lightweight framework for web components.
@@ -141,7 +137,7 @@ customElements.define('role-based-menu', RoleBasedMenu);
     points to Lit.</p>
     <img src='polymer.webp' alt='polymer'/>
 
-    <hr/>
+    <sketchy-hr></sketchy-hr>
     <h2>Hello world</h2>
 
     <p>This is an example of hello world with Lit with additional button to display reactiveness:</p>
@@ -182,7 +178,7 @@ customElements.define('role-based-menu', RoleBasedMenu);
         name
     </button>
 
-    <hr/>
+    <sketchy-hr></sketchy-hr>
 
     <h2>Permission based menu</h2>
 
@@ -307,7 +303,7 @@ customElements.define('role-based-menu', RoleBasedMenu);
     <h3>Menu rendered</h3>
     <role-based-menu id='menu-component'></role-based-menu>
 
-    <hr/>
+    <sketchy-hr></sketchy-hr>
     <h2>Conclusion</h2>
 
     <p>Using Lit has a familiar vibe of using pre-hooks React.
@@ -316,6 +312,7 @@ customElements.define('role-based-menu', RoleBasedMenu);
 
 
 </main>
+    </sketchy-border>
 <footer-component></footer-component>
 </body>
 

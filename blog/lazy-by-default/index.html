@@ -4,18 +4,21 @@
 <title>visnjic.co</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../../style.css">
-<script src="../../components/header.js"></script>
-<script src="../../components/footer.js"></script>
 
+<script src="../../vendors/vendors.js"></script>
+<script src="../../components/custom-elements.js" type="module"></script>
 
 <body>
+<sketchy-border path-prefix="../../">
 <header-component path-prefix="../../"></header-component>
+</sketchy-border>
+    <sketchy-border path-prefix="../../">
 <main>
     <img src="sloth.webp"/>
     <h1 class="mb-0">I am lazy by default</h1>
     <time>Jan 03, 2024</time>
 
-    <hr>
+    <sketchy-hr></sketchy-hr>
     <p>I am lazy by default.</p>
 
     <p>When I see something on a floor, on a table, my first reaction is “I don’t care”.
@@ -29,6 +32,7 @@
 
     <p>Still it is everyday struggle to recognize laziness and override it. But it is worth it.</p>
 </main>
+</sketchy-border>
 <footer-component></footer-component>
 </body>
 
