@@ -1,42 +1,49 @@
 const posts = [
     {
+        url: "blog/jalapeno-growing/index.html",
+        image: "blog/jalapeno-growing/jalapeno.webp",
+        title: "My two-year project of growing jalapeños",
+        time: "Aug 26 2024",
+        description: "First time owning an actual plant. Easier than expected."
+    },
+    {
         url: "blog/lazy-by-default/index.html",
-        image: "blog/lazy-by-default/sloth.webp",
+        image: "blog/lazy-by-default/lazy.webp",
         title: "I am lazy by default",
         time: "Jan 03 2024",
         description: "...and I picked up a useful skill because of it"
     },
     {
         url: "blog/learning-go-advent-of-code/index.html",
-        image: "blog/learning-go-advent-of-code/advent.webp",
+        image: "blog/learning-go-advent-of-code/go.webp",
         title: "Learning Go by solving the AoC 2022",
         time: "Aug 31 2023",
         description: "Writing about my experience learning Go, accidental findings that helped me with my job and how I attempted to solve the Advent of Code 2022"
     },
     {
         url: "blog/lit-web-components/index.html",
-        image: "blog/lit-web-components/logo.webp",
+        image: "blog/lit-web-components/lit.webp",
         title: "Building reusable web-components with Lit",
         time: "Jul 04 2023",
         description: "Web components are a great way to build reusable components. Unlike most frontend frameworks, Lit is a lightweight framework for web components."
     },
     {
         url: "blog/create-astro-blog-part-3/index.html",
-        image: "blog/create-astro-blog-part-3/hero.webp",
+        image: "blog/create-astro-blog-part-3/astro3.webp",
         title: "Create Astro blog like this one.<br> Part 3: GitHub Actions CI/CD",
         time: "Apr 09 2023",
         description: "Complete guide on how to set up automated deployment of Astro blog with GitHub Actions"
     },
     {
         url: "blog/create-astro-blog-part-2/index.html",
-        image: "blog/create-astro-blog-part-2/hero.webp",
+        image: "blog/create-astro-blog-part-2/astro2.webp",
         title: "Create Astro blog like this one.<br> Part 2: Linode server",
         time: "Apr 08 2023",
         description: "How to self-host a blog created with Astro by deploying it on Linode server"
     },
     {
         url: "blog/create-astro-blog-part-1/index.html",
-        image: "blog/create-astro-blog-part-1/hero.webp",
+        image: "blog/create-astro-blog-part-1/astro1.webp",
         title: "Create Astro blog like this one.<br> Part 1: Astro and Git",
         time: "Apr 07 2023",
         description: "First of the series on how to create Astro blog like this one. In this part we will initiate Astro project and push it to GitHub."
