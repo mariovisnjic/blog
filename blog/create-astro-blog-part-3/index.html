@@ -22,13 +22,13 @@
     <img src="astro3.webp"/>
     <h1 class="mb-0">Create Astro blog like this one. Part 3: GitHub Actions CI/CD</h1>
     <time>Apr 09, 2023</time>
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <p>Modern times require modern CI/CD.
     We are lazy to log in to the server and pull changes every time we updated our repository.
         Therefore, we want to auto-deploy when we push to the master/main branch.</p>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Setup GitHub secrets</h2>
     <p>Navigate to repository settings -> Secrets and variables -> Actions</p>
@@ -40,14 +40,14 @@
     <code>SSH_KEY -> private key of keypair value starting with:
         -----BEGIN OPENSSH PRIVATE KEY-----  </code>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Update server</h2>
     <p>If you are not reusing keys, remember to put the new public key into the authorized keys.
     <code>/root/.ssh/authorized_key</code>
         The key looks like this: <code>ssh-rsa AAAALO.......</code></p>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Update project</h2>
 
@@ -101,7 +101,7 @@ name: Deploy CI
 
 <p>Commit and push all the changes.</p>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>GitHub actions</h2>
     <p>Navigate to Actions in the GitHub repository.</p>

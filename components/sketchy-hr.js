@@ -31,7 +31,7 @@ class SketchyHR extends HTMLElement {
         const rc = rough.svg(svg);
         svg.innerHTML = '';
 
-        const width = wrapper.scrollWidth || 300; // Default width if not defined
+        const width = wrapper.scrollWidth || 248; // Default width if not defined
         const height = 10; // Height of the line
 
         // Set the SVG size to match the line

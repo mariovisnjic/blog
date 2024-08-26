@@ -133,6 +133,10 @@ pre {
     height: 100%;
     pointer-events: none;
 }
+.sketchy-hr {
+    width: 100%;
+    overflow: hidden;
+}
 
 @view-transition {
     navigation: auto;

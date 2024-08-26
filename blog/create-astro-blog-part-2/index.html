@@ -22,7 +22,7 @@
     <img src="astro2.webp"/>
     <h1 class="mb-0">Create Astro blog like this one. Part 2: Linode</h1>
     <time>Apr 08, 2023</time>
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <p>First of all, I want to start this part by urging you to use some static site hosting solution like Netlify.
     A full list with examples is available in the <a href="https://docs.astro.build/en/guides/deploy/">documentation</a>
@@ -32,7 +32,7 @@
 
     While generating the server, Linode allows putting the ssh key without even logging into it.</p>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Initiate apache2</h2>
     <p>You can use nginx as oftentimes it looks more "familiar" in their notation. I am using apache2 out of a habit.</p>
@@ -44,7 +44,7 @@ sudo apt install apache2
     <p>Just with that command, you should be able to navigate to the server IP and see the following page</p>
     <img src='apache-init.webp' alt='apache init output'/>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Buy the domain and configure DNS</h2>
     <p>NameCheap is my go-to place for domains.
@@ -52,7 +52,7 @@ sudo apt install apache2
         For DNS, we just need to point it to Linode.</p>
     <img src='namecheap-dns-setup.webp' alt='astro init output'/>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Initiate git and pull the project from GitHub</h2>
     <pre><code class="language-go">sudo apt install git</code></pre>
@@ -95,7 +95,7 @@ npm install
 npm run build
     </code></pre>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Setting up apache2 to serve correct files on selected domain</h2>
     <p>Enable rewrite mode as we will need it and navigate to sites-available</p>
@@ -182,7 +182,7 @@ sudo snap install --classic certbot
     <p>input all fields
         leave empty to get the certificate for all sites</p>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <h2>Debugging</h2>
     <p>If it is not working for any reason, a good starting point is:</p>
@@ -191,7 +191,7 @@ sudo snap install --classic certbot
         The other was a bit obscure error that needed me to add to <code>/etc/apache2/apache2.conf</code></p>
     <pre><code class="language-go">ServerName byte-sized.fun</code></pre>
 
-    <sketchy-hr></sketchy-hr>
+    <sketchy-hr  path-prefix="../../"></sketchy-hr>
 
     <p style="display: flex;justify-content:space-around">
         <strong>Previous step: <a href="../create-astro-blog-part-1/index.html">Previous step</a></strong>
