@@ -4,6 +4,7 @@
         <title>Your Website's Title</title>
         <link>https://visnjic.co/</link>
         <description>Your website's description goes here.</description>
+        <atom:link href="https://visnjic.co/rss.xml" rel="self" type="application/rss+xml" />
         <language>en-us</language>
         <lastBuildDate>Mon, 25 Sep 2024 10:00:00 GMT</lastBuildDate>
         <item>
