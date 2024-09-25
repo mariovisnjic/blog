@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>Your Website's Title</title>
+        <link>https://visnjic.co/</link>
+        <description>Your website's description goes here.</description>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 25 Sep 2024 10:00:00 GMT</lastBuildDate>
+        <item>
+            <title>First Post Title</title>
+            <link>https://visnjic.co/blog/jalapeno-growing/index.html</link>
+            <description>This is the first post's description.</description>
+            <pubDate>Mon, 25 Sep 2024 09:00:00 GMT</pubDate>
+            <guid>https://visnjic.co/blog/jalapeno-growing/index.html</guid>
+        </item>
+    </channel>
+</rss>
